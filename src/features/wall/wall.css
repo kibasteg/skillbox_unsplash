@@ -1,0 +1,60 @@
+.wall {
+
+}
+
+.wall__items {
+
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.wall-item {
+
+  position: relative;
+  width: 200px;
+  margin: 8px 16px 8px 0;
+  overflow: hidden;
+  background: #f2f2f2;
+
+}
+
+.wall-item__thumb {
+
+  display: block;
+
+  height: 0;
+  padding-top: 90%;
+
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.wall-item__captions {
+
+  padding: 6px 12px;
+}
+
+.wall-item__date {
+
+  margin-top: 6px;
+  font-size: 90%;
+}
+
+.wall-item__likes {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 12px;
+  background: #000;
+  color: #fff;
+  padding: 2px 6px 1px 6px;
+  border-radius: 6px;
+}
+
+.wall__actions {
+  padding: 15px 0;
+}
+

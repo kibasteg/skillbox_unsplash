@@ -1,0 +1,36 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "PT Sans", "Droid Sans", Calibri;
+    font-size: 14px;
+}
+
+a {
+    color: inherit;
+}
+
+.wrap {
+
+    padding: 0 15px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.user-bar {
+    margin: 12px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dadada;
+    text-align: right;
+}
+
+.user-bar__name {
+    display: inline-block;
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+}

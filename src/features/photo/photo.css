@@ -1,0 +1,35 @@
+.photo {
+
+}
+
+.photo__pic {
+
+    box-sizing: border-box;
+    max-height: 700px;
+    height: 0;
+    padding-top: 56.25%;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+}
+
+.photo__pic--vertical {
+
+    padding-top: 85%;
+
+}
+
+.photo__captions {
+    background: #dadada;
+    padding: 15px;
+}
+
+.photo__like-btn {
+    margin-left: 15px;
+}
+
+.photo__back-main-btn {
+    position: absolute;
+    top: 14px;
+}
