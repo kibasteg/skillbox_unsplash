@@ -1,5 +1,7 @@
 .photo {
 
+    position: relative;
+
 }
 
 .photo__pic {
@@ -21,7 +23,12 @@
 }
 
 .photo__captions {
-    background: #dadada;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.6);
+    color: #fff;
     padding: 15px;
 }
 
@@ -31,5 +38,16 @@
 
 .photo__back-main-btn {
     position: absolute;
-    top: 14px;
+    top: 0;
+    left: 0;
+    padding: 15px;
+    background: rgba(0,0,0,.6);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.photo__can-like {
+    color: #666;
+    margin-left: 12px;
 }

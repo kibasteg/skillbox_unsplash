@@ -1,3 +1,7 @@
+/*
+* Маленький компонент преобразования даты в человекопонятный формат
+* */
+
 import React from "react";
 
 export default function DatePhoto(props)

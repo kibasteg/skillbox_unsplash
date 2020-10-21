@@ -1,10 +1,15 @@
 import {configureStore} from '@reduxjs/toolkit';
-import wallReducer from '../features/wall/wallSlice';
-import userReducer from '../features/user/userSlice';
+import wallReducer from '../reducers/wallReducer';
+import userReducer from '../reducers/userReducer';
+import {updateStorage} from '../appLocalStorage';
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         wall: wallReducer,
         user: userReducer,
     }
 });
+
+store.subscribe(() => { updateStorage(store.getState()) });
+
+export default store;

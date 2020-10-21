@@ -90,20 +90,26 @@ export default {
 
         return new Promise((resolve, reject) => {
 
-            unsplash.photos.listPhotos(page, perPage, 'latest')
-                .then(responseToJson)
-                .then(response => {
+            try {
 
-                    if (response.error)
-                        reject(`${response.error}: ${response.error_description}`);
+                unsplash.photos.listPhotos(page, perPage, 'latest')
 
-                    resolve(response);
+                    .then(responseToJson)
 
-                }).catch(e => {
+                    .then(response => {
 
-                     reject(e);
+                        if (response.error)
+                            throw new Error(`${response.error}: ${response.error_description}`);
 
-                });
+                        resolve({items: response, page: page});
+
+                    })
+
+            } catch (e) {
+
+                reject(e);
+
+            }
 
         });
 
@@ -124,9 +130,9 @@ export default {
 
                 }).catch(e => {
 
-                    reject(e);
+                reject(e);
 
-                });
+            });
 
         });
 
@@ -136,20 +142,20 @@ export default {
 
         return new Promise((resolve, reject) => {
 
-           unsplash.photos[like ? 'likePhoto' : 'unlikePhoto'](photoId)
-               .then(responseToJson)
-               .then(response => {
+            unsplash.photos[like ? 'likePhoto' : 'unlikePhoto'](photoId)
+                .then(responseToJson)
+                .then(response => {
 
-                   if (response.error)
-                       reject(`${response.error}: ${response.error_description}`);
+                    if (response.error)
+                        reject(`${response.error}: ${response.error_description}`);
 
-                   resolve(response);
+                    resolve(response);
 
-               }).catch(e => {
+                }).catch(e => {
 
-                   reject(e);
+                    reject(e);
 
-               });
+                });
         });
     }
 

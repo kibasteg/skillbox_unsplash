@@ -1,5 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {selectUserStatus, selectUser} from "./selectors/userSelector";
+import {initUser, removeUser} from "./actions/userActions";
+import api from './api';
+
 
 import {
     BrowserRouter as Router,
@@ -7,7 +11,7 @@ import {
     Route
 } from 'react-router-dom'
 
-import {
+/*import {
     selectInit as selectUserInit,
     selectStatus as selectUserStatus,
     selectUser,
@@ -15,7 +19,7 @@ import {
     removeUser,
     setInit as setUserInit,
     getAuthUrl,
-} from './features/user/userSlice'
+} from './features/user/userSlice'*/
 
 import Auth from './features/auth/Auth';
 import Wall from './features/wall/Wall';
@@ -26,20 +30,19 @@ import './app.css';
 function App() {
 
     const dispatch = useDispatch();
-    const userInit = useSelector(selectUserInit);
     const userStatus = useSelector(selectUserStatus);
     const user = useSelector(selectUser);
 
     useEffect(() => {
 
-        if (!userInit)
-            dispatch(setUserInit());
+        if (userStatus === 'init')
+            dispatch(initUser());
 
-    }, [userInit, dispatch]);
+    }, [userStatus, dispatch]);
 
     const handleLogin = () => {
 
-        window.location.assign(getAuthUrl());
+        window.location.assign(api.getAuthUrl());
     };
 
     const handleLogout = () => {
@@ -50,7 +53,11 @@ function App() {
 
     let userBar;
 
-    if (userStatus === 'success')
+    if (userStatus === 'init' || userStatus === 'wait') {
+
+        userBar = <div>Загрузка...{userStatus}</div>;
+
+    } else if (userStatus === 'success')
         userBar = <div><span title={`${user.name} (${user.username})`} className="user-bar__name">{user.name} ({user.username})</span> <button className="btn user-bar__btn user-bar__btn--logout" type="button" onClick={handleLogout}>Выйти</button></div>;
     else
         userBar = <button className="btn user-bar__btn user-bar__btn--login" type="button" onClick={handleLogin}>Войти</button>;

@@ -1,43 +1,40 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from 'react-router-dom'
-import {
-    loadUser,
-    selectStatus,
-    selectStatusText,
-} from "../user/userSlice";
+import {fetchToken, fetchUser} from "../../actions/userActions";
+import {selectUserStatus, selectTokenStatus, selectErrText} from "../../selectors/userSelector";
 
 function Auth() {
 
     const dispatch = useDispatch();
-    const userStatus = useSelector(selectStatus);
-    const userStatusText = useSelector(selectStatusText);
-
+    const userStatus = useSelector(selectUserStatus);
+    const tokenStatus = useSelector(selectTokenStatus);
+    const errText = useSelector(selectErrText);
     const code = window.location.search.split('code=')[1];
 
     useEffect(() => {
 
-        if (userStatus === 'idle')
-            dispatch(loadUser(code));
+        if (tokenStatus === 'idle') {
 
-    }, [userStatus, dispatch, code]);
+            dispatch(fetchToken(code));
+
+        } else if (tokenStatus === 'success') {
+
+            dispatch(fetchUser());
+        }
+
+    }, [tokenStatus, code, dispatch]);
 
     let content;
 
-    if (!code) {
-
-        content = <div>Не получен код авторизации. Вернуться на главную</div>;
-
-    } else {
-
-        if (userStatus === 'loading')
-            content = <div>Загрузка пользователя...</div>;
-        else if (userStatus === 'success')
-            content = <Redirect to="/" />;
-        else if (userStatus === 'error')
-            content = <div>Ошибка загрузки пользователя: ({userStatusText}) <a href={'/'}>Вернуться на главную</a></div>
-    }
-
+    if (tokenStatus === 'success' && userStatus === 'success')
+        content = <Redirect to="/" />;
+    else if (tokenStatus === 'process')
+        content = 'Загрузка токена...';
+    else if (userStatus === 'process')
+        content = 'Загрузка пользователя...';
+    else
+        content = <div>Ошибка авторизации: {errText}</div>;
 
     return (
         <div>
